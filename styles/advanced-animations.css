@@ -1,0 +1,58 @@
+.product-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.product-card-inner {
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Effects */
+.product-card:hover .product-card-inner {
+    transform: translateZ(20px) rotateX(5deg);
+}
+
+/* Image Parallax Effect */
+.product-image-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image-parallax {
+    transition: transform 0.35s ease-out;
+    transform-origin: center center;
+}
+
+.product-card:hover .product-image-parallax {
+    transform: scale(1.15);
+}
+
+/* Quick Actions Animation */
+.quick-actions {
+    position: absolute;
+    right: -60px;
+    top: 10px;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.quick-action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    margin: 5px 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+}
+
+.product-card:hover .quick-actions {
+    right: 10px;
+    opacity: 1;
+}
+
+.product-card:hover .quick-action-btn {
+    transform: translateX(0);
+} 

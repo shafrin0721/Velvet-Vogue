@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessories Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #c17a41;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            position: relative;
+            padding-top: 100%;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: white;
+            z-index: 1;
+        }
+
+        .badge.new { background-color: #28a745; }
+        .badge.trending { background-color: #007bff; }
+        .badge.sale { background-color: #dc3545; }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            z-index: 2;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .wishlist-btn i {
+            color: white;
+            font-size: 20px;
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+        }
+
+        .product-buttons {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-buttons {
+            transform: translateY(0);
+        }
+
+        .quick-view,
+        .add-to-cart {
+            flex: 1;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quick-view {
+            background-color: #c17a41;
+            color: white;
+        }
+
+        .add-to-cart {
+            background-color: #333;
+            color: white;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #c17a41;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 14px;
+        }
+
+        .rating-number {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .modal-product {
+            display: flex;
+            gap: 30px;
+        }
+
+        .modal-product-image {
+            flex: 1;
+        }
+
+        .modal-product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .modal-product-info {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Velvet Vogue</a>
+            <ul class="nav-links">
+                <li><a href="/store/index.html">Home</a></li>
+                <li><a href="/store/women.html">Women</a></li>
+                <li><a href="/store/men.html">Men</a></li>
+                <li><a href="/store/shoes.html">Shoes</a></li>
+                <li><a href="/store/accessories.html">Accessories</a></li>
+                <li><a href="/store/about.html">About</a></li>
+                <li><a href="/store/services.html">Services</a></li>
+                <li><a href="/store/testimonials.html">Testimonials</a></li>
+                <li><a href="/store/contact.html">Contact</a></li>
+                <li><a href="/store/cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Accessories Collection</h1>
+        <p>Step into luxury with our curated accessories collection</p>
+    </header>
+
+    <!-- Products Grid -->
+    <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-product-id="1">
+            <div class="product-image">
+                <span class="badge new">New</span>
+                <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                <img src="https://i.ibb.co/svL5qCc/acc010.jpg" alt="Luxury Watch">
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Luxury Watch Collection</h3>
+                <p class="price">$299</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.5)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-product-id="2">
+            <div class="product-image">
+                <span class="badge trending">Trending</span>
+                <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                <img src="https://i.ibb.co/rc0nq2W/acc12.jpg" alt="Designer Sunglasses">
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Designer Sunglasses</h3>
+                <p class="price">$199</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.0)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue with remaining products -->
+        <div class="product-card" data-product-id="3">
+            <div class="product-image">
+                <img src="https://i.ibb.co/CbCFGbD/acc13.jpg" alt="Premium Belt">
+            </div>
+            <div class="product-info">
+                <h3>Premium Leather Belt</h3>
+                <p class="price">$89</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.2)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue with all products -->
+        <div class="product-card" data-product-id="4">
+            <div class="product-image">
+                <img src="https://i.ibb.co/YDBzbtG/acc-01.jpg" alt="Classic Wallet">
+            </div>
+            <div class="product-info">
+                <h3>Classic Leather Wallet</h3>
+                <p class="price">$79</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.3)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add remaining products -->
+        <div class="product-card" data-product-id="5">
+            <div class="product-image">
+                <img src="https://i.ibb.co/2MmhcSY/acc02.jpg" alt="Designer Watch">
+            </div>
+            <div class="product-info">
+                <h3>Designer Watch</h3>
+                <p class="price">$399</p>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-number">(4.8)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue with remaining products -->
+        <div class="product-card" data-product-id="6">
+            <div class="product-image">
+                <img src="https://i.ibb.co/DRPwntz/acc03.jpg" alt="Luxury Bracelet">
+            </div>
+            <div class="product-info">
+                <h3>Luxury Bracelet</h3>
+                <p class="price">$149</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.1)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card" data-product-id="7">
+            <div class="product-image">
+                <img src="https://i.ibb.co/Wx44nq2/acc04.jpg" alt="Premium Watch">
+            </div>
+            <div class="product-info">
+                <h3>Premium Watch</h3>
+                <p class="price">$299</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.4)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-card" data-product-id="8">
+            <div class="product-image">
+                <img src="https://i.ibb.co/Tc2r9T0/acc05.jpg" alt="Designer Belt">
+            </div>
+            <div class="product-info">
+                <h3>Designer Belt</h3>
+                <p class="price">$129</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.2)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 9 -->
+        <div class="product-card" data-product-id="9">
+            <div class="product-image">
+                <img src="https://i.ibb.co/g3Mv5DV/acc06.jpg" alt="Leather Bracelet">
+            </div>
+            <div class="product-info">
+                <h3>Leather Bracelet</h3>
+                <p class="price">$89</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.3)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 10 -->
+        <div class="product-card" data-product-id="10">
+            <div class="product-image">
+                <span class="badge trending">Trending</span>
+                <img src="https://i.ibb.co/cDqhJJB/acc07.jpg" alt="Classic Sunglasses">
+            </div>
+            <div class="product-info">
+                <h3>Classic Sunglasses</h3>
+                <p class="price">$159</p>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-number">(4.7)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 11 -->
+        <div class="product-card" data-product-id="11">
+            <div class="product-image">
+                <img src="https://i.ibb.co/6YsVHck/acc08.jpg" alt="Premium Watch">
+            </div>
+            <div class="product-info">
+                <h3>Premium Watch Collection</h3>
+                <p class="price">$399</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.5)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 12 -->
+        <div class="product-card" data-product-id="12">
+            <div class="product-image">
+                <img src="https://i.ibb.co/VBSGy2N/acc09.jpg" alt="Designer Belt">
+            </div>
+            <div class="product-info">
+                <h3>Designer Belt Collection</h3>
+                <p class="price">$129</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.1)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 13 -->
+        <div class="product-card" data-product-id="13">
+            <div class="product-image">
+                <img src="https://i.ibb.co/kXJ0LY8/acc13.jpg" alt="Luxury Wallet">
+            </div>
+            <div class="product-info">
+                <h3>Luxury Leather Wallet</h3>
+                <p class="price">$199</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.4)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 14 -->
+        <div class="product-card" data-product-id="14">
+            <div class="product-image">
+                <img src="https://i.ibb.co/kM5XD0z/cat-large-item3.jpg" alt="Premium Bracelet">
+            </div>
+            <div class="product-info">
+                <h3>Premium Bracelet</h3>
+                <p class="price">$149</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.2)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 15 -->
+        <div class="product-card" data-product-id="15">
+            <div class="product-image">
+                <span class="badge new">New</span>
+                <img src="https://i.ibb.co/VHH3qt0/800-5c17a2c1171db.webp" alt="Classic Watch">
+            </div>
+            <div class="product-info">
+                <h3>Classic Watch Collection</h3>
+                <p class="price">$299</p>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-number">(4.8)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 16 -->
+        <div class="product-card" data-product-id="16">
+            <div class="product-image">
+                <img src="https://i.ibb.co/T1CJD2B/800-5c17a214ae68c.webp" alt="Designer Watch">
+            </div>
+            <div class="product-info">
+                <h3>Designer Watch Special</h3>
+                <p class="price">$449</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.3)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 17 -->
+        <div class="product-card" data-product-id="17">
+            <div class="product-image">
+                <img src="https://i.ibb.co/L537s33/800-5c178e836f01a.webp" alt="Luxury Bracelet">
+            </div>
+            <div class="product-info">
+                <h3>Luxury Bracelet Collection</h3>
+                <p class="price">$179</p>
+                <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-number">(4.4)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 18 -->
+        <div class="product-card" data-product-id="18">
+            <div class="product-image">
+                <span class="badge trending">Trending</span>
+                <img src="https://i.ibb.co/3S44Cpn/800-61b091c837ccd.webp" alt="Premium Watch">
+            </div>
+            <div class="product-info">
+                <h3>Premium Watch Special</h3>
+                <p class="price">$349</p>
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-number">(4.9)</span>
+                </div>
+                <div class="product-buttons">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-product">
+                <div class="modal-product-image">
+                    <img id="modalProductImage" src="" alt="Product">
+                </div>
+                <div class="modal-product-info">
+                    <h2 id="modalProductName"></h2>
+                    <p id="modalProductPrice" class="price"></p>
+                    <div id="modalProductRating" class="rating"></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
+

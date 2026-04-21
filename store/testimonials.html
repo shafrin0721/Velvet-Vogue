@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer Testimonials - Velvet Vogue</title>
+    
+    <style>
+        :root {
+            --global_main_color: #c07830;
+            --text-color: #523314;
+            --background-light: #f4e5d6;
+            --star-color: #ffd700;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Caladea', serif;
+            padding-top: 80px;
+            color: var(--text-color);
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--global_main_color);
+            text-decoration: none;
+        }
+
+        .testimonials-hero {
+            background-color: var(--background-light);
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .testimonials-hero h1 {
+            font-size: 48px;
+            color: var(--global_main_color);
+            margin-bottom: 20px;
+        }
+
+        .testimonials-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-info h3 {
+            margin: 0;
+            color: var(--global_main_color);
+            font-size: 18px;
+        }
+
+        .testimonial-info p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .testimonial-rating {
+            color: var(--star-color);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-date {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .submit-testimonial {
+            background-color: var(--background-light);
+            padding: 80px 0;
+            margin-top: 60px;
+        }
+
+        .testimonial-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .rating {
+            direction: rtl;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 30px;
+            color: lightgray;
+            cursor: pointer;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: var(--star-color);
+        }
+
+        .submit-button {
+            background-color: var(--global_main_color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.3s;
+        }
+
+        .submit-button:hover {
+            opacity: 0.9;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        @media (max-width: 992px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-hero h1 {
+                font-size: 36px;
+            }
+
+            .testimonials-hero p {
+                font-size: 18px;
+            }
+
+            .testimonial-form {
+                padding: 20px;
+            }
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-info,
+        .footer-links {
+            flex: 1 1 200px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin: 8px 0;
+        }
+
+        .footer-links ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links h3 {
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.05);
+        }
+
+        .testimonials-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+<script src="scripts/main.js" defer></script>
+<script src="scripts/product-detail.js" defer></script>
+<script src="scripts/product-modal.js" defer></script>
+<script src="scripts/products.js" defer></script>
+
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="/" class="logo">Velvet Vogue</a>
+            <ul class="nav-menu">
+                <li><a href="example/store/index.html">Home</a></li>
+                <li><a href="example/store/women.html">Women</a></li>
+                <li><a href="example/store/men.html">Men</a></li>
+                <li><a href="example/store/shoes.html">Shoes</a></li>
+                <li><a href="example/store/accessories.html">Accessories</a></li>
+                <li><a href="example/store/about.html">About</a></li>
+                <li><a href="example/store/services.html">Services</a></li>
+                <li><a href="example/store/testimonials.html" class="active">Testimonials</a></li>
+                <li><a href="example/store/contact.html">Contact</a></li>
+            </ul>
+            <div class="cart-icon">
+                <a href="/store/cart.html">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="testimonials-hero">
+            <div class="testimonials-container">
+                <h1>Customer Testimonials</h1>
+                <p>Hear what our valued customers have to say about their experience with Velvet Vogue</p>
+            </div>
+        </section>
+
+        <section class="testimonials-container">
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-list">
+                        <h2>Testimonials</h2>
+                        <div id="testimonialsContainer">
+                            <!-- Existing testimonials can be added here -->
+                            <div class="testimonial-card">
+                                <h3>Existing Testimonial Name</h3>
+                                <p>Rating: ★★★★</p>
+                                <p>This is an existing testimonial.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-info">
+                                <h3>Sarah M.</h3>
+                                <p>Regular Customer</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">★★★★★</div>
+                        <div class="testimonial-text">
+                            "The personal styling service at Velvet Vogue completely transformed my wardrobe!"
+                        </div>
+                        <div class="testimonial-date">Posted on March 15, 2024</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-slide">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-info">
+                                <h3>Emily R.</h3>
+                                <p>Frequent Buyer</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">★★★★★</div>
+                        <div class="testimonial-text">
+                            "Absolutely love their formal collection. Quality and elegance!"
+                        </div>
+                        <div class="testimonial-date">Posted on April 10, 2024</div>
+                    </div>
+                </div>
+
+                <!-- You can add more .testimonial-slide blocks here -->
+            </div>
+        </section>
+
+        <section class="submit-testimonial">
+            <div class="testimonials-container">
+                <div class="testimonial-form">
+                    <h2>Share Your Experience</h2>
+                    <form id="testimonialForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <div class="rating">
+                                <input type="radio" name="rating" value="5" id="star5" required><label for="star5">★</label>
+                                <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                                <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                                <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                                <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="testimonial">Your Testimonial</label>
+                            <textarea id="testimonial" name="testimonial" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Submit Testimonial</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Velvet Vogue</h3>
+                <p>Where fashion meets elegance. Your satisfaction is our top priority.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="example/store/index.html">Home</a></li>
+                <li><a href="example/store/women.html">Women</a></li>
+                <li><a href="example/store/men.html">Men</a></li>
+                <li><a href="example/store/shoes.html">Shoes</a></li>
+                <li><a href="example/store/accessories.html">Accessories</a></li>
+                <li><a href="example/store/about.html">About</a></li>
+                <li><a href="example/store/services.html">Services</a></li>
+                <li><a href="example/store/testimonials.html" >Testimonials</a></li>
+                <li><a href="example/store/contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll(".testimonial-slide");
+            let currentIndex = 0;
+    
+            // Auto-switching testimonial slides (if any exist)
+            if (slides.length > 0) {
+                setInterval(() => {
+                    slides[currentIndex].classList.remove("active");
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    slides[currentIndex].classList.add("active");
+                }, 5000);
+            }
+    
+            const testimonialsContainer = document.getElementById('testimonialsContainer');
+            const form = document.getElementById('testimonialForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+    
+            // Load testimonials from backend
+            function loadTestimonials() {
+                testimonialsContainer.innerHTML = '<p>Loading testimonials...</p>';
+    
+                fetch('store/get_testimonials.php')
+                    .then(response => {
+                        if (!response.ok) throw new Error('Failed to fetch testimonials.');
+                        return response.json();
+                    })
+                    .then(data => {
+                        testimonialsContainer.innerHTML = '';
+    
+                        if (data.length === 0) {
+                            testimonialsContainer.innerHTML = '<p>No testimonials available yet.</p>';
+                            return;
+                        }
+    
+                        data.forEach(testimonial => {
+                            const card = document.createElement('div');
+                            card.className = 'testimonial-card';
+                            card.innerHTML = `
+                                <h3>${testimonial.name}</h3>
+                                <p>Rating: ${'★'.repeat(testimonial.rating)}${'☆'.repeat(5 - testimonial.rating)}</p>
+                                <p>${testimonial.testimonial}</p>
+                            `;
+                            testimonialsContainer.appendChild(card);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching testimonials:', error);
+                        testimonialsContainer.innerHTML = '<p>Error loading testimonials.</p>';
+                    });
+            }
+    
+            // Handle form submission
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form behavior
+    
+                // Collect and validate form inputs
+                const name = document.getElementById('name').value.trim();
+                const rating = parseInt(document.querySelector('input[name="rating"]:checked')?.value, 10);
+                const testimonial = document.getElementById('testimonial').value.trim();
+    
+                if (!name || !rating || !testimonial) {
+                    alert('Please fill in all fields and select a rating.');
+                    return;
+                }
+    
+                // Prepare form data
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('rating', rating);
+                formData.append('testimonial', testimonial);
+    
+                // Disable button to prevent multiple submissions
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+    
+                // Submit the testimonial
+                fetch('store/add_testimonial.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Submission failed.');
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert(data.message || 'Thank you for your testimonial!');
+                        form.reset();          // Reset form fields
+                        loadTestimonials();    // Reload updated testimonials
+                    })
+                    .catch(error => {
+                        console.error('Error submitting testimonial:', error);
+                        alert('Failed to submit testimonial.');
+                    })
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Submit';
+                    });
+            });
+    
+            // Load testimonials on initial page load
+            loadTestimonials();
+        });
+
+        function displayTestimonial(index) {
+            const testimonialsContainer = document.getElementById('testimonialsContainer');
+            testimonialsContainer.innerHTML = ''; // Clear existing testimonials
+
+            if (testimonials.length > 0) {
+                const testimonial = testimonials[index];
+                const testimonialCard = document.createElement('div');
+                testimonialCard.className = 'testimonial-card'; // Apply the same class
+                testimonialCard.innerHTML = `
+                    <h3>${testimonial.name}</h3>
+                    <p>Rating: ${'★'.repeat(testimonial.rating)}</p>
+                    <p>${testimonial.testimonial}</p>
+                `;
+                testimonialsContainer.appendChild(testimonialCard);
+            }
+        }
+    </script>
+    
+
+</body>
+</html>

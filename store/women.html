@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Collection - Velvet Vogue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- Copy all the styles from index.html here -->
+    <style>
+       /* Reset and Base Styles */
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-middle a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-middle a:hover {
+            color: #c17a41;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        /* Featured Categories */
+        .featured-categories {
+            padding: 50px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 400px;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Product Grid */
+        .products-section {
+            padding: 80px 0;
+            background: #f9f9f9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            font-size: 12px;
+            z-index: 1;
+        }
+
+        .badge.new { background: #28a745; }
+        .badge.trending { background: #007bff; }
+        .badge.sale { background: #dc3545; }
+
+        .product-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            transition: bottom 0.3s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            bottom: 0;
+        }
+
+        .product-overlay button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-view {
+            background: #c17a41;
+            color: white;
+        }
+
+        .add-to-cart {
+            background: #333;
+            color: white;
+        }
+
+        .add-to-wishlist {
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            font-size: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .add-to-wishlist i {
+            color: #888;
+            transition: color 0.2s ease;
+        }
+
+        .add-to-wishlist.wishlist-active i {
+            color: red;
+            transform: scale(1.2);
+        }
+
+        .wishlist-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #c17a41;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+
+        .product-rating span {
+            color: #666;
+            margin-left: 5px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .footer-section p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ff4d4d;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #ff4d4d;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #ccc;
+        }
+
+        .newsletter-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: #ff4d4d;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #ff3333;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Cart Styles */
+        .cart-sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            display: none; /* Initially hidden */
+            z-index: 1000;
+        }
+
+        .cart-header {
+            padding: 10px;
+            background: #007bff;
+            color: white;
+        }
+
+        .cart-items {
+            padding: 10px;
+            overflow-y: auto;
+            height: calc(100% - 150px); /* Adjust height */
+        }
+
+        .cart-footer {
+            padding: 10px;
+            text-align: right;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #218838;
+        }
+
+        /* Message Styles */
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            color: white;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success { background-color: #28a745; }
+        .message.remove { background-color: #dc3545; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Navbar Shrink Styles */
+        .navbar {
+            transition: all 0.3s ease;
+            padding: 20px 50px;
+        }
+
+        .navbar-shrink {
+            padding: 10px 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-shrink .logo {
+            font-size: 1.5rem; /* Smaller logo when shrunk */
+        }
+
+        /* Quick View Modal Styles */
+        #quickViewModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 1000px;
+            padding: 30px;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            border-radius: 10px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .modal-details {
+            padding-right: 30px;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .modal-price {
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        /* Rating Stars */
+        .rating {
+            display: flex;
+            gap: 5px;
+            margin: 15px 0;
+        }
+
+        .rating span {
+            color: #000;
+        }
+
+        /* Product Description */
+        .modal-description {
+            font-size: 16px;
+            color: #666;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+
+        /* Size Selection */
+        .size-selection h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .size-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .size-btn {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ddd;
+            background: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-btn.selected {
+            background: #c17f59;
+            color: white;
+            border-color: #c17f59;
+        }
+
+        /* Quantity Selection */
+        .quantity-selection h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ddd;
+            background: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-input {
+            width: 60px;
+            height: 35px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart-modal {
+            width: 100%;
+            padding: 15px 0;
+            background: #c17f59;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart-modal:hover {
+            background: #a66c4a;
+        }
+
+        /* Close Button */
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">Velvet Vogue</a>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="example/store/index.html">Home</a></li>
+                <li><a href="example/store/women.html">Women</a></li>
+                <li><a href="example/store/men.html">Men</a></li>
+                <li><a href="example/store/shoes.html">Shoes</a></li>
+                <li><a href="example/store/accessories.html">Accessories</a></li>
+                <li><a href="example/store/about.html">About</a></li>
+                <li><a href="example/store/services.html">Services</a></li>
+                <li><a href="example/store/testimonials.html">Testimonials</a></li>
+                <li><a href="example/store/contact.html">Contact</a></li>
+            </ul>
+            <div class="cart-icon">
+                <a href="/store/cart.html">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Featured Products Section -->
+    <section class="products-section">
+        <h2 class="section-title">Women's Collection</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="badge new">New</span>
+                    <img src="https://i.ibb.co/wS0VMXJ/banner-image-1.jpg" alt="Designer Dress">
+                    <div class="product-overlay">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-wishlist">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Designer Dress</h3>
+                    <p class="price">$299</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.5)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 1 -->
+<div class="product-card">
+    <div class="product-image">
+        <span class="badge new">New</span>
+        <img src="https://i.ibb.co/RjGv4bY/800-5c178d6d607e7.webp" alt="Casual Wear ">
+        <div class="product-overlay">
+            <button class="quick-view">Quick View</button>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-wishlist">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3>Casual Wear</h3>
+        <p class="price">$1999</p>
+        <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(4.5)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Product 2 -->
+<div class="product-card">
+    <div class="product-image">
+        <img src="https://i.ibb.co/r6MbPNT/banner-image-2.jpg" alt="Chic Denim Jacke">
+        <div class="product-overlay">
+            <button class="quick-view">Quick View</button>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-wishlist">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3>Chic Denim Jacket</h3>
+        <p class="price">$8000</p>
+        <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <i class="far fa-star"></i>
+            <span>(3.8)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Product 3 -->
+<div class="product-card">
+    <div class="product-image">
+        <img src="https://i.ibb.co/zHPb5xZ/banner-image-3.jpg" alt="Vintage Floral Dress">
+        <div class="product-overlay">
+            <button class="quick-view">Quick View</button>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-wishlist">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3>Vintage Floral Dress</h3>
+        <p class="price">$9255</p>
+        <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(3.0)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Product 4 -->
+<div class="product-card">
+    <div class="product-image">
+        <span class="badge sale">Sale</span>
+        <img src="https://i.ibb.co/rFdXKdR/banner-image-5.jpg" alt="Formal Office Blazer">
+        <div class="product-overlay">
+            <button class="quick-view">Quick View</button>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-wishlist">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3>Formal Office Blazer</h3>
+        <p class="price">$3400</p>
+        <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>(4.5)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Product 5 -->
+<div class="product-card">
+    <div class="product-image">
+        <img src="https://i.ibb.co/hcTRmQW/banner-image-6.jpg" alt="Casual Wear">
+        <div class="product-overlay">
+            <button class="quick-view">Quick View</button>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-wishlist">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3>Casual Summer Dress</h3>
+        <p class="price">$1100</p>
+        <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(4.0)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Product 6 -->
+<div class="product-card">
+    <div class="product-image">
+        <img src="https://i.ibb.co/dgW0vmM/product-item-8.jpg" alt="Office Wear">
+        <div class="product-overlay">
+            <button class="quick-view">Quick View</button>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="add-to-wishlist">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3>Office Wear</h3>
+        <p class="price">$1750</p>
+        <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(3.5)</span>
+        </div>
+    </div>
+</div>
+
+        <!-- Product 7 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="badge trending">Trending</span>
+                <img src="https://i.ibb.co/pK3Tpyy/product-item-9.jpg" alt="Formal Wear">
+                <div class="product-overlay">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Formal Wear</h3>
+                <p class="price">$1399</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(4.0)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://i.ibb.co/RPmdv5g/product-item-10.jpg" alt="Knitted Winter Sweater">
+                <div class="product-overlay">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Knitted Winter Sweater</h3>
+                <p class="price">$1929</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(4.5)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 9 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="badge new">New</span>
+                <img src="https://i.ibb.co/jD72Bz5/product-item-3.jpg" alt="Summer Collection Set">
+                <div class="product-overlay">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Summer Collection Set</h3>
+                <p class="price">$1699</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(4.0)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 10 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="badge sale">Sale</span>
+                <img src="https://i.ibb.co/3hNfQsT/product-item-5.jpg" alt="Casual Comfort Set">
+                <div class="product-overlay">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Casual Comfort Set</h3>
+                <p class="price">$899</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(5.0)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 11 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://i.ibb.co/M1TSw3B/product-item-6.jpg" alt="Evening Elegance">
+                <div class="product-overlay">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Evening Elegance</h3>
+                <p class="price">$2250</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(4.5)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 12 -->
+        <div class="product-card">
+            <div class="product-image">
+                <span class="badge trending">Trending</span>
+                <img src="https://i.ibb.co/sw2PrxX/single-image-2.jpg" alt="Modern Chic Ensemble">
+                <div class="product-overlay">
+                    <button class="quick-view">Quick View</button>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>Modern Chic Ensemble</h3>
+                <p class="price">$1799</p>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(4.0)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Velvet Vogue is your premier destination for fashion and style. We bring you the latest trends and timeless classics.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="men.html">Men</a></li>
+                    <li><a href="shoes.html">Shoes</a></li>
+                    <li><a href="accessories.html">Accessories</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="example/store/contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Velvet Vogue. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="close-cart" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <h3>Total: <span class="total-amount">$0.00</span></h3>
+            </div>
+            <button class="checkout-btn" onclick="window.location.href='cart.html'">Proceed to Checkout</button>
+        </div>
+    </div>
+    
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-image-container">
+                <img src="" alt="" class="modal-image">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title"></h2>
+                <p class="modal-price"></p>
+                <div class="rating">
+                    <span>★★★★☆</span>
+                    <span>(4.5)</span>
+                </div>
+                <p class="modal-description">Experience comfort and style with this beautiful piece from our collection.</p>
+                
+                <div class="size-selection">
+                    <h4>Select Size</h4>
+                    <div class="size-buttons">
+                        <button class="size-btn selected">S</button>
+                        <button class="size-btn">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                    </div>
+                </div>
+
+                <div class="quantity-selection">
+                    <h4>Quantity</h4>
+                    <div class="quantity-controls">
+                        <button class="qty-btn minus">-</button>
+                        <input type="number" class="qty-input" value="1" min="1">
+                        <button class="qty-btn plus">+</button>
+                    </div>
+                </div>
+
+                <button class="add-to-cart-modal">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize cart
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add to Cart from Product Cards
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const productCard = this.closest('.product-card');
+                const priceText = productCard.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace('$', ''));
+                
+                const product = {
+                    name: productCard.querySelector('h3').textContent,
+                    price: price,
+                    image: productCard.querySelector('img').src,
+                    quantity: 1,
+                    size: 'M',
+                    id: Date.now()
+                };
+
+                addToCart(product);
+                showMessage('Added to Cart!', 'success');
+            });
+        });
+
+        // Cart Functions
+        function addToCart(product) {
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+            document.querySelector('.cart-sidebar').classList.add('active');
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.querySelector('.cart-items');
+            if(!cartItems) return;
+
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size}</p>
+                            <div class="item-quantity">
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                            <p class="price">$${(item.price * item.quantity).toFixed(2)}</p>
+                            <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const totalElement = document.querySelector('.total-amount');
+            if(totalElement) {
+                totalElement.textContent = `$${total.toFixed(2)}`;
+            }
+        }
+
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if(!cartCount) return;
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        // Make functions globally available
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+            showMessage('Removed from Cart!', 'remove');
+        };
+
+        window.updateQuantity = function(index, change) {
+            if(cart[index].quantity + change > 0) {
+                cart[index].quantity += change;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+            }
+        };
+
+        function showMessage(text, type) {
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            document.body.appendChild(message);
+            setTimeout(() => message.remove(), 2000);
+        }
+
+        // Initialize cart
+        updateCartDisplay();
+        updateCartCount();
+
+        // Cart Toggle
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const closeCart = document.querySelector('.close-cart');
+
+        cartIcon.addEventListener('click', function() {
+            cartSidebar.classList.add('active');
+            updateCartDisplay();
+        });
+
+        closeCart.addEventListener('click', function() {
+            cartSidebar.classList.remove('active');
+        });
+    });
+    </script>
+</body>
+</html>

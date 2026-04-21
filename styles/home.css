@@ -1,0 +1,160 @@
+/* Hero Section */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-slider {
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.slide-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+/* Featured Categories */
+.featured-categories {
+    padding: 80px 0;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.category-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Featured Products */
+.featured-products {
+    padding: 80px 0;
+    background: #f9f9f9;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Collection Banner */
+.collection-banner {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+}
+
+.collection-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+/* Instagram Feed */
+.instagram-feed {
+    padding: 80px 0;
+}
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.insta-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Newsletter */
+.newsletter {
+    padding: 100px 0;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 30px auto 0;
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .instagram-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+} 

@@ -1,0 +1,52 @@
+<div class="review-section">
+    <h3>Customer Reviews</h3>
+    <div class="rating-summary">
+        <div class="average-rating">
+            <span class="rating">4.5</span>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+            </div>
+            <span class="total-reviews">(125 reviews)</span>
+        </div>
+    </div>
+    
+    <div class="review-form">
+        <h4>Write a Review</h4>
+        <form id="reviewForm">
+            <div class="rating-input">
+                <span>Your Rating:</span>
+                <div class="stars-input">
+                    <!-- Star rating inputs -->
+                </div>
+            </div>
+            <textarea placeholder="Share your experience with this product..."></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+</div>
+
+<div class="size-recommender">
+    <h4>Find Your Perfect Size</h4>
+    <form id="sizeRecommenderForm">
+        <div class="measurements">
+            <div class="measurement-input">
+                <label>Height (cm)</label>
+                <input type="number" name="height" required>
+            </div>
+            <div class="measurement-input">
+                <label>Weight (kg)</label>
+                <input type="number" name="weight" required>
+            </div>
+            <!-- Add more measurement inputs -->
+        </div>
+        <button type="submit">Get Size Recommendation</button>
+    </form>
+    
+    <div class="size-result" style="display: none;">
+        <h5>Recommended Size: <span class="recommended-size"></span></h5>
+    </div>
+</div> 

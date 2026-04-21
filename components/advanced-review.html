@@ -1,0 +1,62 @@
+<div class="review-system">
+    <!-- Review Summary -->
+    <div class="review-summary">
+        <div class="rating-distribution">
+            <div class="rating-bar">
+                <span class="stars">5 stars</span>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 75%"></div>
+                </div>
+                <span class="count">(150)</span>
+            </div>
+            <!-- Repeat for 4,3,2,1 stars -->
+        </div>
+        
+        <div class="review-highlights">
+            <h4>What Customers Love</h4>
+            <div class="highlight-tags">
+                <span class="tag">Perfect Fit</span>
+                <span class="tag">High Quality</span>
+                <span class="tag">Fast Shipping</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Form -->
+    <div class="review-form-advanced">
+        <form id="advancedReviewForm">
+            <div class="rating-section">
+                <div class="overall-rating">
+                    <label>Overall Rating</label>
+                    <div class="star-rating">
+                        <!-- Interactive star rating -->
+                    </div>
+                </div>
+                
+                <div class="specific-ratings">
+                    <div class="rating-item">
+                        <label>Fit</label>
+                        <input type="range" min="1" max="5">
+                    </div>
+                    <div class="rating-item">
+                        <label>Quality</label>
+                        <input type="range" min="1" max="5">
+                    </div>
+                    <div class="rating-item">
+                        <label>Value</label>
+                        <input type="range" min="1" max="5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-upload">
+                <label>Add Photos/Videos</label>
+                <input type="file" multiple accept="image/*,video/*">
+                <div class="preview-area"></div>
+            </div>
+
+            <textarea placeholder="Write your review (min. 50 characters)"></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+</div> 

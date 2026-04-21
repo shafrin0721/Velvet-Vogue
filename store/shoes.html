@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Collection - Velvet Vogue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- Copy all the styles from index.html here -->
+    <style>
+       /* Reset and Base Styles */
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-middle a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-middle a:hover {
+            color: #c17a41;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        /* Featured Categories */
+        .featured-categories {
+            padding: 50px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 400px;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Product Grid */
+        .products-section {
+            padding: 80px 0;
+            background: #f9f9f9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            font-size: 12px;
+            z-index: 1;
+        }
+
+        .badge.new { background: #28a745; }
+        .badge.trending { background: #007bff; }
+        .badge.sale { background: #dc3545; }
+
+        .product-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            transition: bottom 0.3s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            bottom: 0;
+        }
+
+        .product-overlay button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-view {
+            background: #c17a41;
+            color: white;
+        }
+
+        .add-to-cart {
+            background: #333;
+            color: white;
+        }
+
+        .add-to-wishlist {
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            font-size: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .add-to-wishlist i {
+            color: #888;
+            transition: color 0.2s ease;
+        }
+
+        .add-to-wishlist.wishlist-active i {
+            color: red;
+            transform: scale(1.2);
+        }
+
+        .wishlist-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #c17a41;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+
+        .product-rating span {
+            color: #666;
+            margin-left: 5px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .footer-section p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ff4d4d;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #ff4d4d;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #ccc;
+        }
+
+        .newsletter-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: #ff4d4d;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #ff3333;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Cart Styles */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .quantity-btn {
+            background: #eee;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .remove-item {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #218838;
+        }
+
+        /* Message Styles */
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            color: white;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success { background-color: #28a745; }
+        .message.remove { background-color: #dc3545; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Navbar Shrink Styles */
+        .navbar {
+            transition: all 0.3s ease;
+            padding: 20px 50px;
+        }
+
+        .navbar-shrink {
+            padding: 10px 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-shrink .logo {
+            font-size: 1.5rem; /* Smaller logo when shrunk */
+        }
+
+        /* Quick View Modal Styles */
+        #quickViewModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: 8px;
+            position: relative;
+            padding: 20px;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 30px;
+        }
+
+        .modal-image-container {
+            flex: 1;
+        }
+
+        .modal-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .modal-details {
+            flex: 1;
+            padding: 20px;
+        }
+
+        #modalTitle {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .price-rating {
+            margin-bottom: 20px;
+        }
+
+        #modalPrice {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #ffc107;
+        }
+
+        .rating-number {
+            color: #666;
+            margin-left: 5px;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .size-selector, .quantity-selector {
+            margin-bottom: 25px;
+        }
+
+        .size-selector h4, .quantity-selector h4 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .size-btn {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .size-btn:hover {
+            border-color: #c17a41;
+        }
+
+        .size-btn.selected {
+            background: #c17a41;
+            color: white;
+            border-color: #c17a41;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+        }
+
+        .qty-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .add-to-cart-modal {
+            width: 100%;
+            padding: 12px;
+            background: #c17a41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart-modal:hover {
+            background: #a66835;
+        }
+
+        /* Wishlist Button Styles */
+        .add-to-wishlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .add-to-wishlist i.fas {
+            color: #ff4d4d;
+        }
+
+        /* Add to Cart Button in Modal */
+        .add-to-cart-modal {
+            padding: 8px 16px;
+            background-color: #c17a41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-modal:hover {
+            background-color: #a66835;
+        }
+
+        /* Message Toast */
+        .message-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .message-toast.success {
+            background-color: #28a745;
+        }
+
+        .message-toast.error {
+            background-color: #dc3545;
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quick-view, .add-to-cart {
+            flex: 1;
+            padding: 12px 20px;  /* Increased padding */
+            font-size: 16px;  /* Larger font size */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .quick-view {
+            background-color: #c17a41;
+            color: white;
+        }
+
+        .quick-view:hover {
+            background-color: #a66835;
+        }
+
+        .add-to-cart {
+            background-color: #333;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">Velvet Vogue</a>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="/store/index.html">Home</a></li>
+                <li><a href="/store/women.html" class="active">Women</a></li>
+                <li><a href="/store/men.html">Men</a></li>
+                <li><a href="/store/shoes.html">Shoes</a></li>
+                <li><a href="/store/accessories.html">Accessories</a></li>
+                <li><a href="/store/about.html">About</a></li>
+                <li><a href="/store/services.html">Services</a></li>
+                <li><a href="/store/testimonials.html">Testimonials</a></li>
+                <li><a href="/store/contact.html">Contact</a></li>
+            </ul>
+            <div class="cart-icon">
+                <a href="/store/cart.html">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Featured Products Section -->
+    <section class="products-section">
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/Jp5jWCM/shoe-1.jpg" alt="Classics">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Classics</h3>
+                    <p class="price">$299</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/W3SGTMN/shoe-2.jpg" alt="Urban Sneakers">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Urban Sneakers</h3>
+                    <p class="price">$1999</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="badge trending">Trending</span>
+                    <img src="https://i.ibb.co/GTH4fGw/shoe-11.jpg" alt="Sport Running Shoes">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Sport Running Shoes</h3>
+                    <p class="price">$1599</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/34mB9GR/shoe-12.jpg" alt="Casual Comfort Shoes">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Casual Comfort Shoes</h3>
+                    <p class="price">$1799</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="badge sale">Sale</span>
+                    <img src="https://i.ibb.co/D5pjcP8/shoe-3.jpg" alt="Athletic Performance">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Athletic Performance</h3>
+                    <p class="price">$2299</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/nLnv6jz/shoe-4.jpg" alt="Fashion Sneakers">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Fashion Sneakers</h3>
+                    <p class="price">$1899</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/1b4vLDJ/shoe-5.jpg" alt="Lifestyle Shoes">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Lifestyle Shoes</h3>
+                    <p class="price">$2099</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="badge new">New</span>
+                    <img src="https://i.ibb.co/wW56qnV/shoe-6.jpg" alt="Modern Runners">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Modern Runners</h3>
+                    <p class="price">$2499</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/1QX5wNJ/shoe-7.jpg" alt="Street Style Sneakers">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Street Style Sneakers</h3>
+                    <p class="price">$1699</p>   
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="badge trending">Trending</span>
+                    <img src="https://i.ibb.co/kmQ60Nc/shoe-8.jpg" alt="Premium Comfort">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Premium Comfort</h3>
+                    <p class="price">$2799</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/1nyW5pW/shoe-9.jpg" alt="Urban Explorer">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Urban Explorer</h3>
+                    <p class="price">$2399 </p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="badge sale">Sale</span>
+                    <img src="https://i.ibb.co/6yJ7R5g/shoe-10.jpg" alt="Performance Elite">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Performance Elite</h3>
+                    <p class="price">$2599</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://i.ibb.co/2hxBwcq/800-5ce21d25f2171.webp" alt="Classic Elegance">
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-info">
+                    <h3>Classic Elegance</h3>
+                    <p class="price">$2899</p>
+                    <div class="product-buttons">
+                        <button class="quick-view">Quick View</button>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Velvet Vogue is your premier destination for fashion and style. We bring you the latest trends and timeless classics.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="men.html">Men</a></li>
+                    <li><a href="shoes.html">Shoes</a></li>
+                    <li><a href="accessories.html">Accessories</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Velvet Vogue. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <h3>Total: <span class="total-amount">$0.00</span></h3>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle"></h2>
+                    <div class="price-rating">
+                        <p id="modalPrice"></p>
+                        <div class="rating">
+                            <span>★★★★☆</span>
+                            <span class="rating-number">(4.5)</span>
+                        </div>
+                    </div>
+                    <p class="description">Experience comfort and style with this beautiful piece from our collection.</p>
+                    
+                    <div class="size-selector">
+                        <h4>Select Size (EU)</h4>
+                        <div class="size-options">
+                            <button class="size-btn" data-size="36">36</button>
+                            <button class="size-btn" data-size="37">37</button>
+                            <button class="size-btn" data-size="38">38</button>
+                            <button class="size-btn" data-size="39">39</button>
+                            <button class="size-btn" data-size="40">40</button>
+                            <button class="size-btn" data-size="41">41</button>
+                            <button class="size-btn" data-size="42">42</button>
+                            <button class="size-btn" data-size="43">43</button>
+                            <button class="size-btn" data-size="44">44</button>
+                            <button class="size-btn" data-size="45">45</button>
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <h4>Quantity</h4>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus">-</button>
+                            <input type="text" class="qty-input" value="1" min="1">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                    </div>
+
+                    <button class="add-to-cart-modal">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Toast -->
+    <div id="messageToast" class="message-toast"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Quick View functionality
+        const quickViewButtons = document.querySelectorAll('.quick-view');
+        const modal = document.getElementById('quickViewModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalPrice = document.getElementById('modalPrice');
+        const addToCartModalBtn = document.querySelector('.add-to-cart-modal');
+        const sizeButtons = document.querySelectorAll('.size-btn');
+        let selectedSize = null;
+
+        // Wishlist functionality
+        document.querySelectorAll('.add-to-wishlist').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+                showMessage(icon.classList.contains('fas') ? 'Added to Wishlist!' : 'Removed from Wishlist!', 'success');
+            });
+        });
+
+        // Quick View
+        quickViewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.product-card');
+                modalImage.src = card.querySelector('img').src;
+                modalTitle.textContent = card.querySelector('h3').textContent;
+                modalPrice.textContent = card.querySelector('.price').textContent;
+                modal.style.display = 'block';
+                
+                // Reset selections
+                selectedSize = null;
+                sizeButtons.forEach(btn => btn.classList.remove('selected'));
+                document.querySelector('.qty-input').value = 1;
+            });
+        });
+
+        // Size Selection
+        sizeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                sizeButtons.forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedSize = this.dataset.size;
+            });
+        });
+
+        // Quantity Controls
+        const quantityInput = document.querySelector('.qty-input');
+        document.querySelector('.qty-btn.minus').addEventListener('click', () => {
+            if (quantityInput.value > 1) quantityInput.value--;
+        });
+        document.querySelector('.qty-btn.plus').addEventListener('click', () => {
+            quantityInput.value++;
+        });
+
+        // Add to Cart from Modal
+        addToCartModalBtn.addEventListener('click', function() {
+            const selectedSize = document.querySelector('.size-btn.selected')?.dataset.size;
+            
+            if (!selectedSize) {
+                alert('Please select a size');
+                return;
+            }
+
+            const product = {
+                id: Date.now(),
+                name: document.getElementById('modalTitle').textContent,
+                price: parseFloat(document.getElementById('modalPrice').textContent.replace('$', '')),
+                image: document.getElementById('modalImage').src,
+                size: selectedSize,
+                quantity: parseInt(document.querySelector('.qty-input').value)
+            };
+
+            // Add to cart array
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update cart display
+            updateCartDisplay();
+            updateCartCount();
+
+            // Close modal and show success message
+            document.getElementById('quickViewModal').style.display = 'none';
+            showMessage('Added to cart successfully!', 'success');
+        });
+
+        // Close Modal
+        document.querySelector('.close').addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Show Message Function
+        function showMessage(text, type) {
+            const toast = document.getElementById('messageToast');
+            toast.textContent = text;
+            toast.className = `message-toast ${type}`;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Add to Cart Function
+        function addToCart(product) {
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        // Update Cart Display
+        function updateCartDisplay() {
+            const cartItems = document.querySelector('.cart-items');
+            if (!cartItems) return;
+
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size}</p>
+                            <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                            <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const totalElement = document.querySelector('.total-amount');
+            if (totalElement) {
+                totalElement.textContent = `$${total.toFixed(2)}`;
+            }
+        }
+
+        // Update Cart Count
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (!cartCount) return;
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        // Initialize
+        updateCartDisplay();
+        updateCartCount();
+
+        // Add to Cart from Product Card
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.product-card');
+                const product = {
+                    id: Date.now(),
+                    name: card.querySelector('h3').textContent,
+                    price: parseFloat(card.querySelector('.price').textContent.replace('$', '')),
+                    image: card.querySelector('img').src,
+                    size: 'Default',  // Default size if not selected
+                    quantity: 1
+                };
+
+                addToCart(product);
+                showMessage('Added to Cart!', 'success');
+            });
+        });
+
+        // Add to Cart Function
+        function addToCart(product) {
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        // Update Cart Display
+        function updateCartDisplay() {
+            const cartItems = document.querySelector('.cart-items');
+            if (!cartItems) return;
+
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size}</p>
+                            <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                            <button onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.querySelector('.total-amount').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Update Cart Count
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (!cartCount) return;
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        // Show Message Function
+        function showMessage(text, type) {
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            document.body.appendChild(message);
+            setTimeout(() => message.remove(), 3000);
+        }
+
+        // Initialize
+        updateCartDisplay();
+        updateCartCount();
+
+        // Function to add item to cart
+        function addToCart(product) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+            if (existingProductIndex !== -1) {
+                // If product already exists in cart, increase quantity
+                cart[existingProductIndex].quantity += 1;
+            } else {
+                // Add new product to cart
+                product.quantity = 1;
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        // Function to update cart count in the navbar
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = cartCount;
+        }
+
+        // Call this function on page load to update cart count
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+
+        // Add event listeners to all "Add to Cart" buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productCard = this.closest('.product-card');
+                const product = {
+                    id: productCard.dataset.productId,
+                    name: productCard.querySelector('h3').textContent,
+                    price: parseFloat(productCard.querySelector('.price').textContent.replace('$', '')),
+                    image: productCard.querySelector('img').src
+                };
+                addToCart(product);
+                alert('Product added to cart!');
+            });
+        });
+    });
+    </script>
+</body>
+</html>

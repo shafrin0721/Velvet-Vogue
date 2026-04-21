@@ -1,0 +1,56 @@
+<section class="shop-section">
+    <div class="container">
+        <div class="shop-layout">
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar">
+                <div class="filter-group">
+                    <h3>Categories</h3>
+                    <ul class="category-list">
+                        <li><label><input type="checkbox"> Dresses</label></li>
+                        <li><label><input type="checkbox"> Tops</label></li>
+                        <li><label><input type="checkbox"> Bottoms</label></li>
+                        <li><label><input type="checkbox"> Accessories</label></li>
+                    </ul>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Price Range</h3>
+                    <div class="price-range">
+                        <input type="range" min="0" max="1000" step="10">
+                        <div class="price-inputs">
+                            <input type="number" placeholder="Min">
+                            <input type="number" placeholder="Max">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Colors</h3>
+                    <div class="color-options">
+                        <button style="background: #000;"></button>
+                        <button style="background: #6F4E37;"></button>
+                        <button style="background: #4A90E2;"></button>
+                        <button style="background: #FF4444;"></button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Product Grid with Filters -->
+            <div class="filtered-products">
+                <div class="filter-header">
+                    <div class="active-filters">
+                        <span class="filter-tag">Dresses <button>&times;</button></span>
+                        <span class="filter-tag">$100-$300 <button>&times;</button></span>
+                    </div>
+                    <select class="sort-by">
+                        <option>Sort by: Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest First</option>
+                    </select>
+                </div>
+                <!-- Product Grid goes here -->
+            </div>
+        </div>
+    </div>
+</section> 
