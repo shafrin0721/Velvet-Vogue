@@ -67,11 +67,6 @@ This project was developed to demonstrate:
 - Interactive Forms  
 - CSS Animations  
 - Icons  
-- Responsive Banners  
+- Responsive Banners
 
-_Add screenshots of your website here_
-
-```html
-/assets/images/homepage.png
-/assets/images/products.png
-/assets/images/contact.png
+---
